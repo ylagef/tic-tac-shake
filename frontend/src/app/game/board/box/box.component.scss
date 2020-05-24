@@ -1,0 +1,50 @@
+@import "../board.component.scss";
+
+.box-container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  .value {
+    animation: fade-in 0.5s forwards;
+  }
+
+  .circle {
+    width: 70px;
+    height: 70px;
+
+    .circle-inner {
+      height: 50px;
+      width: 50px;
+
+      border-radius: 50%;
+      border: 10px solid white;
+    }
+  }
+
+  .cross {
+    width: 70px;
+    height: 70px;
+    position: relative;
+  }
+  .cross:before,
+  .cross:after {
+    position: absolute;
+    left: 30px;
+    content: " ";
+    height: 70px;
+    width: 10px;
+    background-color: white;
+  }
+  .cross:before {
+    transform: rotate(45deg);
+  }
+  .cross:after {
+    transform: rotate(-45deg);
+  }
+}

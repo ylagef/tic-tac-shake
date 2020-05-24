@@ -1,0 +1,27 @@
+@import "../game.component.scss";
+
+.header-container {
+  padding: 10px;
+  text-align: center;
+
+  .title {
+    font-size: 40px;
+    font-weight: bold;
+
+    animation: spacing 3s forwards;
+
+    .shake {
+      color: rgba(232, 246, 0, 1);
+    }
+  }
+
+  @keyframes spacing {
+    0% {
+      letter-spacing: 0px;
+    }
+
+    100% {
+      letter-spacing: 10px;
+    }
+  }
+}
