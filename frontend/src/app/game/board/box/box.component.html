@@ -1,5 +1,5 @@
-<div class="box-container" [style.cursor]="(box.value!==null) ? 'initial' : 'pointer'" [ngStyle]="getBorders()"
-    (click)="handleClick()">
+<div class="box-container" [style.cursor]="(!box.value) ? 'initial' : 'pointer'" [ngStyle]="getBorders()"
+    (click)="(!box.value && animationLoaded) ? handleClick() : null">
 
     <div *ngIf="box.value==='o'" class="circle value">
         <div class="circle-inner"></div>

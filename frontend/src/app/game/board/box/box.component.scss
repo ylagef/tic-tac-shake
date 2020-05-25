@@ -10,6 +10,13 @@
 
   cursor: pointer;
 
+  // Animation
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-size: 0 3px, 3px 0, 0 3px, 3px 0;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: bg 1s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
+
   .value {
     animation: fade-in 0.5s forwards;
   }
@@ -46,5 +53,25 @@
   }
   .cross:after {
     transform: rotate(-45deg);
+  }
+}
+
+@keyframes bg {
+  0% {
+    opacity: 0;
+    background-size: 0 3px, 3px 0, 0 3px, 3px 0;
+  }
+  25% {
+    background-size: 100% 3px, 3px 0, 0 3px, 3px 0;
+  }
+  50% {
+    background-size: 100% 3px, 3px 100%, 0 3px, 3px 0;
+  }
+  75% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 0;
+  }
+  100% {
+    opacity: 1;
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
   }
 }

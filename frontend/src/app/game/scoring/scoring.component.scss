@@ -10,7 +10,8 @@
   flex-wrap: wrap;
   opacity: 0;
 
-  animation: fade-in 2s forwards;
+  animation: fade-in 3s forwards;
+  animation-delay: 2s;
 
   .game-state {
     width: 80%;

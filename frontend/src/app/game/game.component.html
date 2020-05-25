@@ -1,7 +1,9 @@
 <div class="game-container">
     <app-header class="full-width"></app-header>
 
-    <app-board [game]="game" class="full-width"></app-board>
+    {{game | json}}
 
-    <app-scoring *ngIf="game" [game]="game" class="full-width"></app-scoring>
+    <app-board [(game)]="game" class="full-width"></app-board>
+
+    <app-scoring [game]="game" class="full-width"></app-scoring>
 </div>
