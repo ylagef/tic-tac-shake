@@ -65,52 +65,63 @@ export class BoardComponent implements OnInit {
     }
 
     this.game.state = 'ended';
-    this.game.winner = this.game.players.find(p => p.piece === player);
+    if (player) {
+      this.game.winner = this.game.players.find(p => p.piece === player);
+    } else {
+      this.game.winner = null;
+    }
     this.gameChange.emit(this.game);
     this.loading = false;
   }
 
   public handleClick(box: Box) {
-    this.loading = true;
+    // Check loading in order to avoid unwanted events
+    if (this.loading === false) {
+      this.loading = true;
 
-    if (this.game.state === 'ended') {
-      this.restartGame.emit(true);
-      this.endedLine = null;
-    } else {
-      this.gameService.nextMove(this.game, box, this.game.currentPlayer).subscribe(
-        (response: any) => {
-
-          // Update box state player 1
-          box.value = response.boxes[0].value;
-          this.updateBox(box);
-
-          // Update box state player 2
-          if (response.boxes[1]) {
-            setTimeout(() => {
-              this.updateBox(response.boxes[1]);
-              this.loading = false;
-            }, 500);
-          } else {
-            this.loading = false;
-          }
-
-          if (response.ended && response.ended.player === 'x') {
-            // Player 1 wins
-            this.endGame(response.ended.player, response.ended.line);
-          } else if (response.ended && response.ended.player === 'o') {
-            // Player 2 wins
-            setTimeout(() => {
-              if (response.ended && response.ended.player === 'o') {
-                // Player 2 (IA) wins
-                this.endGame(response.ended.player, response.ended.line);
-              }
-            }, 500);
-          } else if (response.ended === null) {
-            // Draw
-            this.endGame(null, null);
-          }
+      if (this.game.state === 'ended') {
+        // If game is ended, restart it
+        this.endedLine = null;
+        this.restartGame.emit(true);
+      } else {
+        // Update game state
+        if (this.game.state === 'preparing') {
+          this.game.state = 'playing';
         }
-      );
+        // Query server for next-move processing and response
+        this.gameService.nextMove(this.game, box, this.game.currentPlayer).subscribe(
+          (response: any) => {
+            // Update box state player 1
+            box.value = response.boxes[0].value;
+            this.updateBox(box);
+
+            // Update box state player 2
+            if (response.boxes[1]) {
+              setTimeout(() => {
+                this.updateBox(response.boxes[1]);
+                this.loading = false;
+              }, 500);
+            } else {
+              this.loading = false;
+            }
+
+            if (response.ended && response.ended.player === 'x') {
+              // Player 1 wins
+              this.endGame(response.ended.player, response.ended.line);
+            } else if (response.ended && response.ended.player === 'o') {
+              // Player 2 wins
+              setTimeout(() => {
+                if (response.ended && response.ended.player === 'o') {
+                  this.endGame(response.ended.player, response.ended.line);
+                }
+              }, 500);
+            } else if (response.ended === null) {
+              // Draw
+              this.endGame(null, null);
+            }
+          }
+        );
+      }
     }
 
   }

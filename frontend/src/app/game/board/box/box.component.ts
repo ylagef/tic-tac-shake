@@ -12,6 +12,7 @@ export class BoxComponent implements OnInit {
   @Input() game: Game;
   @Input() box: Box;
   @Input() loading: boolean;
+  @Output() loadingChange = new EventEmitter<boolean>();
   @Input() endedLine: number[];
 
   @Output() clickEmitter = new EventEmitter<Box>();
@@ -20,23 +21,23 @@ export class BoxComponent implements OnInit {
 
   ngOnInit(): void {
     // Wait until animations are done
-    setTimeout(() => this.loading = false, 3000);
+    setTimeout(() => this.loadingChange.emit(false), 2000);
   }
 
   public handleClick(): void {
     this.clickEmitter.emit(this.box);
   }
 
-  public getEnded(): {} {
+  public getEnded(type: string): {} {
     let ended;
 
     if (this.endedLine && this.endedLine.includes(this.box.position)) {
       ended = {
-        animation: 'winner 1s forwards'
+        animation: (type === 'o') ? 'o-winner 1s forwards' : 'x-winner 1s forwards'
       };
     } else if (this.endedLine && !this.endedLine.includes(this.box.position)) {
       ended = {
-        animation: 'not-winner 1s forwards'
+        animation: (type === 'o') ? 'o-not-winner 1s forwards' : 'x-not-winner 1s forwards'
       };
     }
 

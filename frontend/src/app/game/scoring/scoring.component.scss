@@ -2,7 +2,7 @@
 
 .scoring-container {
   width: 100%;
-  padding: 10px;
+  padding: 20px 10px;
 
   display: flex;
   align-items: center;
@@ -13,8 +13,8 @@
   animation: fade-in 3s forwards;
   animation-delay: 2s;
 
-  .game-state {
-    width: 80%;
+  .current-player {
+    width: 90%;
     padding: 5px;
 
     display: flex;
@@ -22,12 +22,15 @@
     justify-content: center;
 
     label {
+      text-align: center;
       font-weight: bold;
+      font-size: 1.2em;
     }
   }
 
-  .current-player {
-    width: 80%;
+  .game-state {
+    width: 90%;
+    height: 50px;
     padding: 5px;
 
     display: flex;
@@ -35,7 +38,8 @@
     justify-content: center;
 
     label {
-      font-size: 1.2em;
+      text-align: center;
+      font-size: 0.8em;
     }
   }
 }

@@ -57,6 +57,34 @@
   }
 }
 
+@media (max-width: 600px) {
+  .box-container {
+    .circle {
+      width: 50px;
+      height: 50px;
+
+      .circle-inner {
+        height: 40px;
+        width: 40px;
+
+        border: 5px solid white;
+      }
+    }
+
+    .cross {
+      width: 50px;
+      height: 50px;
+    }
+    .cross:before,
+    .cross:after {
+      left: 23px;
+      height: 50px;
+      width: 5px;
+      border-radius: 1px;
+    }
+  }
+}
+
 @keyframes bg {
   0% {
     opacity: 0;
@@ -77,21 +105,44 @@
   }
 }
 
-@keyframes winner {
+@keyframes o-winner {
   0% {
+    transform: scale(1);
+    transform: rotate(0deg) translateX(5px) rotate(0deg);
+  }
+  50% {
+    // transform: rotate(180deg) translateX(5px) rotate(-180deg);
+  }
+  100% {
+    transform: scale(1.4);
+    transform: rotate(360deg) translateX(0px) rotate(-360deg);
+  }
+}
+
+@keyframes o-not-winner {
+  0% {
+    transform: scale(1);
     opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.75;
+  }
+}
+
+@keyframes x-winner {
+  0% {
     transform: scale(1);
     transform: rotate(0);
   }
 
   100% {
-    opacity: 1;
-    transform: scale(1.3);
-    transform: rotate(360deg);
+    transform: scale(1.4);
+    transform: rotate(180deg);
   }
 }
 
-@keyframes not-winner {
+@keyframes x-not-winner {
   0% {
     transform: scale(1);
     opacity: 1;
