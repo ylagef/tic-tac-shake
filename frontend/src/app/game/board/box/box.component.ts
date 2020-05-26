@@ -10,32 +10,38 @@ import { Game } from 'src/app/shared/models/game.model';
 })
 export class BoxComponent implements OnInit {
   @Input() game: Game;
-
   @Input() box: Box;
-  @Output() boxChange = new EventEmitter<Box>();
+  @Input() loading: boolean;
+  @Input() endedLine: number[];
 
-  public animationLoaded = false;
+  @Output() clickEmitter = new EventEmitter<Box>();
 
-  constructor(private gameService: GameService) { }
+  constructor() { }
 
   ngOnInit(): void {
     // Wait until animations are done
-    setTimeout(() => this.animationLoaded = true, 2000);
+    setTimeout(() => this.loading = false, 3000);
   }
 
   public handleClick(): void {
-    this.gameService.nextMove(this.game, this.box, this.game.currentPlayer).subscribe(
-      (b: Box[]) => {
-        // Update box state
-        this.box.value = b[0].value;
-        this.boxChange.emit(this.box);
-        if (b[1]) {
-          setTimeout(() => this.boxChange.emit(b[1]), 500);
-        }
-      }
-    );
+    this.clickEmitter.emit(this.box);
   }
 
+  public getEnded(): {} {
+    let ended;
+
+    if (this.endedLine && this.endedLine.includes(this.box.position)) {
+      ended = {
+        animation: 'winner 1s forwards'
+      };
+    } else if (this.endedLine && !this.endedLine.includes(this.box.position)) {
+      ended = {
+        animation: 'not-winner 1s forwards'
+      };
+    }
+
+    return ended;
+  }
   public getBorders(): {} {
     let borders;
 

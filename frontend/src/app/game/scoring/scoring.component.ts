@@ -31,6 +31,7 @@ export class ScoringComponent implements OnInit {
 
   public getCurrentPlayer(): string {
     let player = '';
+
     switch (this.game.currentPlayer.piece) {
       case 'x':
         player = 'Jugador 1';

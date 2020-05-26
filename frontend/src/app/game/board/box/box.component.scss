@@ -22,12 +22,12 @@
   }
 
   .circle {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
 
     .circle-inner {
-      height: 50px;
-      width: 50px;
+      height: 70px;
+      width: 70px;
 
       border-radius: 50%;
       border: 10px solid white;
@@ -35,18 +35,19 @@
   }
 
   .cross {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     position: relative;
   }
   .cross:before,
   .cross:after {
     position: absolute;
-    left: 30px;
+    left: 40px;
     content: " ";
-    height: 70px;
+    height: 90px;
     width: 10px;
     background-color: white;
+    border-radius: 3px;
   }
   .cross:before {
     transform: rotate(45deg);
@@ -73,5 +74,30 @@
   100% {
     opacity: 1;
     background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+}
+
+@keyframes winner {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    transform: rotate(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.3);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes not-winner {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
   }
 }

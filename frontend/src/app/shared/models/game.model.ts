@@ -5,5 +5,7 @@ export class Game {
     boxes: Box[];
     currentPlayer: Player;
     players: Player[];
+
     state: 'preparing' | 'playing' | 'ended';
+    winner: Player;
 }

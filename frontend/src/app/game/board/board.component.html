@@ -1,4 +1,7 @@
 <div class="board-container">
-    <app-box class="box" *ngFor="let box of game.boxes" [box]="box" (boxChange)="updateBox($event)" [game]="game">
+    <app-box class="box" *ngFor="let box of game.boxes" [game]="game" [box]="box" [endedLine]="endedLine"
+        (clickEmitter)="handleClick($event)">
     </app-box>
+
+    <!-- <div class="line"></div> -->
 </div>

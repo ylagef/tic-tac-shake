@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
     this.gameInitialization();
   }
 
-  private gameInitialization(): void {
+  public gameInitialization(): void {
     this.game = new Game();
     this.game.state = 'preparing';
     this.boxesInitialization();
@@ -33,7 +33,6 @@ export class GameComponent implements OnInit {
 
       this.game.boxes.push(b);
     }
-    console.log(this.game.boxes);
   }
 
   private playersInitialization(): void {

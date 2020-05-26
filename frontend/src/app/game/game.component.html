@@ -1,9 +1,7 @@
 <div class="game-container">
     <app-header class="full-width"></app-header>
 
-    {{game | json}}
-
-    <app-board [(game)]="game" class="full-width"></app-board>
+    <app-board [(game)]="game" (restartGame)="gameInitialization()" class="full-width"></app-board>
 
     <app-scoring [game]="game" class="full-width"></app-scoring>
 </div>
