@@ -125,4 +125,31 @@ export class BoardComponent implements OnInit {
     }
 
   }
+
+  public getBorders(box: Box): {} {
+    let borders;
+
+    switch (box.position) {
+      case 1:
+      case 7:
+        borders = {
+          'background-image': 'none, linear-gradient(to bottom, white 100%, white 100%), none, linear-gradient(to bottom, white 100%, white 100%)',
+          'animation-delay': '1s'
+        };
+        break;
+      case 3:
+      case 5:
+        borders = {
+          'background-image': 'linear-gradient(to right, white 100%, white 100%), none, linear-gradient(to right, white 100%, white 100%), none',
+          'animation-delay': '1s'
+        };
+        break;
+      case 4:
+      case 4:
+        borders = { 'background-image': 'linear-gradient(to right, white 100%, white 100%), linear-gradient(to bottom, white 100%, white 100%), linear-gradient(to right, white 100%, white 100%), linear-gradient(to bottom, white 100%, white 100%)' };
+        break;
+    }
+
+    return borders;
+  }
 }

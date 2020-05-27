@@ -10,15 +10,9 @@
 
   cursor: pointer;
 
-  // Animation
-  opacity: 0;
-  background-repeat: no-repeat;
-  background-size: 0 3px, 3px 0, 0 3px, 3px 0;
-  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-  animation: bg 1s cubic-bezier(0.19, 1, 0.22, 1) 1 forwards;
-
   .value {
-    animation: fade-in 0.5s forwards;
+    // opacity: 0;
+    animation: fade-in 0.3s forwards;
   }
 
   .circle {
@@ -85,33 +79,10 @@
   }
 }
 
-@keyframes bg {
-  0% {
-    opacity: 0;
-    background-size: 0 3px, 3px 0, 0 3px, 3px 0;
-  }
-  25% {
-    background-size: 100% 3px, 3px 0, 0 3px, 3px 0;
-  }
-  50% {
-    background-size: 100% 3px, 3px 100%, 0 3px, 3px 0;
-  }
-  75% {
-    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 0;
-  }
-  100% {
-    opacity: 1;
-    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
-  }
-}
-
 @keyframes o-winner {
   0% {
     transform: scale(1);
     transform: rotate(0deg) translateX(5px) rotate(0deg);
-  }
-  50% {
-    // transform: rotate(180deg) translateX(5px) rotate(-180deg);
   }
   100% {
     transform: scale(1.4);

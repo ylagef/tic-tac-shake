@@ -24,7 +24,7 @@ export class ScoringComponent implements OnInit {
         state = 'Partida en progreso...';
         break;
       case 'ended':
-        state = '¡Fin de la partida!<br/>Pulsa una casilla para volver a jugar';
+        state = 'Pulsa una casilla para volver a jugar';
         break;
     }
 

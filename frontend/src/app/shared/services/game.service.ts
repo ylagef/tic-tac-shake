@@ -10,10 +10,14 @@ import { Player } from '../models/player.model';
   providedIn: 'root'
 })
 export class GameService {
-  private baseUri = 'http://localhost:3000/api';
+  private baseUri: string;
   private headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) {
+    this.baseUri = 'http://' + window.location.host.split(':')[0] + ':3000/api';
+  }
 
   public nextMove(game: Game, box: Box, player: Player): Observable<any> {
     const data = { game, box, player };
@@ -35,7 +39,9 @@ export class GameService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    console.error('errorrrrrrrrr');
     console.error(errorMessage);
+    console.error(error);
     return throwError(errorMessage);
   }
 }

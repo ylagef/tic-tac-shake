@@ -1,6 +1,6 @@
 <div class="box-container"
     [style.cursor]="((box.value && game.state !== 'ended') || loading === true) ? 'initial' : 'pointer'"
-    [ngStyle]="getBorders()" (click)="(!box.value || game.state==='ended') ? handleClick() : null">
+    (click)="(!box.value || game.state==='ended') ? handleClick() : null">
 
     <div *ngIf="box.value==='o'" class="circle value" [ngStyle]="getEnded('o')">
         <div class="circle-inner" [ngStyle]="getEnded('o')"></div>

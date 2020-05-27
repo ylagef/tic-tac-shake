@@ -1,7 +1,13 @@
 <div class="board-container">
-    <app-box class="box" *ngFor="let box of game.boxes" [game]="game" [box]="box" [endedLine]="endedLine"
-        (clickEmitter)="handleClick($event)" [(loading)]="loading">
-    </app-box>
+    <div class="box-container">
+        <div class="box box-lines" *ngFor="let box of game.boxes" [ngStyle]="getBorders(box)">
+        </div>
+    </div>
+    <div class="box-container">
+        <app-box class="box" *ngFor="let box of game.boxes" [game]="game" [box]="box" [endedLine]="endedLine"
+            (clickEmitter)="handleClick($event)" [(loading)]="loading">
+        </app-box>
+    </div>
 
     <!-- <div class="line"></div> -->
 </div>

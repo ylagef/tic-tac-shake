@@ -29,44 +29,18 @@ export class BoxComponent implements OnInit {
   }
 
   public getEnded(type: string): {} {
-    let ended;
+    let style;
 
     if (this.endedLine && this.endedLine.includes(this.box.position)) {
-      ended = {
+      style = {
         animation: (type === 'o') ? 'o-winner 1s forwards' : 'x-winner 1s forwards'
       };
     } else if (this.endedLine && !this.endedLine.includes(this.box.position)) {
-      ended = {
+      style = {
         animation: (type === 'o') ? 'o-not-winner 1s forwards' : 'x-not-winner 1s forwards'
       };
     }
 
-    return ended;
-  }
-  public getBorders(): {} {
-    let borders;
-
-    switch (this.box.position) {
-      case 1:
-      case 7:
-        borders = {
-          'background-image': 'none, linear-gradient(to bottom, white 100%, white 100%), none, linear-gradient(to bottom, white 100%, white 100%)',
-          'animation-delay': '1s'
-        };
-        break;
-      case 3:
-      case 5:
-        borders = {
-          'background-image': 'linear-gradient(to right, white 100%, white 100%), none, linear-gradient(to right, white 100%, white 100%), none',
-          'animation-delay': '1s'
-        };
-        break;
-      case 4:
-      case 4:
-        borders = { 'background-image': 'linear-gradient(to right, white 100%, white 100%), linear-gradient(to bottom, white 100%, white 100%), linear-gradient(to right, white 100%, white 100%), linear-gradient(to bottom, white 100%, white 100%)' };
-        break;
-    }
-
-    return borders;
+    return style;
   }
 }
