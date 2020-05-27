@@ -21,7 +21,7 @@ export class BoxComponent implements OnInit {
 
   ngOnInit(): void {
     // Wait until animations are done
-    setTimeout(() => this.loadingChange.emit(false), 2000);
+    setTimeout(() => this.loadingChange.emit(false), 2500);
   }
 
   public handleClick(): void {
