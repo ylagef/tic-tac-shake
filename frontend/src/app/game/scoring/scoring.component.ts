@@ -47,7 +47,7 @@ export class ScoringComponent implements OnInit {
 
         toret += ', ¡has ganado!';
       } else {
-        toret = 'Jugadores, esto es un empate!';
+        toret = 'Jugadores, ¡esto es un empate!';
       }
     } else {
       switch (this.game.currentPlayer.piece) {
