@@ -1,6 +1,7 @@
 {
-  "name": "tic-tac-shake",
-  "version": "0.0.0",
+  "name": "tic-tac-shake-fe",
+  "version": "1.0.0",
+  "description": "Tic tac shake frontend",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

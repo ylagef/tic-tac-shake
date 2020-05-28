@@ -67,6 +67,7 @@ describe("Next game queries", () => {
     expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty("boxes");
   });
+
   it("should get ended game - Player 1 wins", async () => {
     const res = await request(app).post("/api/next-move").send(
       {
@@ -158,6 +159,7 @@ describe("Next game queries", () => {
 
     expect(res.status).toEqual(400);
   });
+
   it("should get 400 error - No box data", async () => {
     const res = await request(app).post("/api/next-move").send(
       {

@@ -134,7 +134,7 @@ function validState(state: string) {
 class GameController {
     static getNextMove(req: any, res: any) {
         if (!req.body.game || !req.body.box || !validGame(req.body.game) || !validBox(req.body.box)) {
-            return res.status(400).send('Bad format.');
+            return res.status(400).send('Bad format');
         }
 
         const game: Game = req.body.game;
