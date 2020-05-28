@@ -1,6 +1,5 @@
 import { Game } from "../models/game.model";
 import { Box } from "../models/box.model";
-import { Player } from "../models/player.model";
 
 function getFillingArray(game: Game, playerValue: string): {} {
     // Rows
@@ -77,68 +76,119 @@ function getBetterAiMove(game: Game): number {
     return validIndexes[Math.floor(Math.random() * validIndexes.length)];
 }
 
+function validGame(data: any) {
+    if (data.boxes !== undefined && data.boxes instanceof Array) {
+        let validBoxes = true;
+        let index = 0;
+        data.boxes.forEach((b: any) => {
+            if (!validBox(b) || b.position !== index) {
+                // One box is not valid
+                validBoxes = false;
+            }
+
+            index++;
+        });
+
+        if (!validBoxes) {
+            return false;
+        }
+    } else {
+        // Boxes is undefined or not array
+        return false;
+    }
+
+    if (data.players !== undefined && data.players instanceof Array) {
+        let validPlayers = true;
+        data.players.forEach((p: any) => {
+            if (!validPlayer(p)) {
+                // One player is not valid
+                validPlayers = false;
+            }
+        });
+
+        if (!validPlayers) {
+            return false;
+        }
+    } else {
+        // Players is undefined or not array
+        return false;
+    }
+
+    return (data.state !== undefined && validState(data.state) && data.currentPlayer !== undefined && validPlayer(data.currentPlayer));
+}
+
+function validBox(data: any) {
+    return (data.position !== undefined && typeof data.position === 'number' && data.value !== undefined && [null, 'x', 'o'].includes(data.value));
+}
+
+function validPlayer(data: any) {
+    return (data.piece !== undefined && ['x', 'o'].includes(data.piece));
+}
+
+function validState(state: string) {
+    return (['preparing', 'playing', 'ended'].includes(state));
+}
+
 class GameController {
-    static getNextMove(req, res) {
+    static getNextMove(req: any, res: any) {
+        if (!req.body.game || !req.body.box || !validGame(req.body.game) || !validBox(req.body.box)) {
+            return res.status(400).send('Bad format.');
+        }
+
         const game: Game = req.body.game;
         let box: Box = req.body.box;
-        const player: Player = req.body.player;
 
         const response = {};
         response['boxes'] = [];
 
-        if (player.piece === 'x') {
-            // Player 1 movement
-            box.value = 'x';
-            game.boxes.find(b => b.position === box.position).value = 'x';
-            response['boxes'].push(box);
+        // Player 1 movement
+        box.value = 'x';
+        game.boxes.find(b => b.position === box.position).value = 'x';
+        response['boxes'].push(box);
 
-            const pEnded = getEndedGame(game, 'x');
+        const pEnded = getEndedGame(game, 'x');
 
-            if (pEnded !== null) {
-                // Player 1 filled a line, so game ended and player 1 is the winner
-                response['ended'] = { player: 'x', line: pEnded };
-            } else {
-                // Player 2
-                if (game.boxes.filter(b => b.value === null).length > 1) {
-                    // Calculate ia termination risk (rows, cols, cross)
-                    const iaIndex = getAvailableLines(game, 'o').indexOf(true);
+        if (pEnded !== null) {
+            // Player 1 filled a line, so game ended and player 1 is the winner
+            response['ended'] = { player: 'x', line: pEnded };
+        } else {
+            // Player 2
+            if (game.boxes.filter(b => b.value === null).length > 1) {
+                // Calculate ia termination risk (rows, cols, cross)
+                const iaIndex = getAvailableLines(game, 'o').indexOf(true);
 
-                    // Calculate player termination risk (rows, cols, cross)           
-                    const pIndex = getAvailableLines(game, 'x').indexOf(true);
-                    let index;
-                    if (iaIndex > -1) {
-                        // If ia can end
-                        index = iaIndex;
-                    } else if (pIndex > -1) {
-                        // If player can end
-                        index = pIndex;
-                    } else {
-                        // Better ai movement without ending
-                        index = getBetterAiMove(game);
-                    }
+                // Calculate player termination risk (rows, cols, cross)           
+                const pIndex = getAvailableLines(game, 'x').indexOf(true);
+                let index;
+                if (iaIndex > -1) {
+                    // If ia can end
+                    index = iaIndex;
+                } else if (pIndex > -1) {
+                    // If player can end
+                    index = pIndex;
+                } else {
+                    // Better ai movement without ending
+                    index = getBetterAiMove(game);
+                }
 
-                    const iaBox = game.boxes.find(b => b.position === index);
-                    iaBox.value = 'o';
-                    response['boxes'].push(iaBox);
+                const iaBox = game.boxes.find(b => b.position === index);
+                iaBox.value = 'o';
+                response['boxes'].push(iaBox);
 
-                    const aiEnded = getEndedGame(game, 'o');
-                    if (aiEnded !== null) {
-                        // Ai filled a line, so game ended and ai is the winner
-                        response['ended'] = { player: 'o', line: aiEnded };
-                    }
+                const aiEnded = getEndedGame(game, 'o');
+                if (aiEnded !== null) {
+                    // Ai filled a line, so game ended and ai is the winner
+                    response['ended'] = { player: 'o', line: aiEnded };
                 }
             }
-
-            if (game.boxes.filter(b => b.value === null).length === 0 && !response['ended']) {
-                // Draws: No free boxes and not ended
-                response['ended'] = null;
-            }
-
-            return res.status(200).send(response);
-        } else {
-            // Wrong player
-            return res.status(400).send('Wrong player');
         }
+
+        if (game.boxes.filter(b => b.value === null).length === 0 && !response['ended']) {
+            // Draws: No free boxes and not ended
+            response['ended'] = null;
+        }
+
+        return res.status(200).send(response);
     }
 }
 

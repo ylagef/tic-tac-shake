@@ -92,7 +92,7 @@ export class BoardComponent implements OnInit {
         }
 
         // Query server for next-move processing and response
-        this.gameService.nextMove(this.game, box, this.game.currentPlayer).subscribe(
+        this.gameService.nextMove(this.game, box).subscribe(
           (response: any) => {
             // Update box state player 1
             box.value = response.boxes[0].value;

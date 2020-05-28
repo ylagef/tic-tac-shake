@@ -18,8 +18,8 @@ export class GameService {
     this.baseUri = 'http://' + window.location.host.split(':')[0] + ':3000/api';
   }
 
-  public nextMove(game: Game, box: Box, player: Player): Observable<any> {
-    const data = { game, box, player };
+  public nextMove(game: Game, box: Box): Observable<any> {
+    const data = { game, box };
 
     const url = `${this.baseUri}/next-move`;
     return this.http.post(url, data)
