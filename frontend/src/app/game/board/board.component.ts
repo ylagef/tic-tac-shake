@@ -22,7 +22,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  public updateBox(box: Box) {
+  public updateBox(box: Box): void {
     // Update box
     this.game.boxes.find(response => response.position === box.position).value = box.value;
 
@@ -33,7 +33,7 @@ export class BoardComponent implements OnInit {
     this.gameChange.emit(this.game);
   }
 
-  private endGame(player: string, line: string) {
+  private endGame(player: string, line: string): void {
     switch (line) {
       case 'r1':
         this.endedLine = [0, 1, 2];
@@ -65,16 +65,18 @@ export class BoardComponent implements OnInit {
     }
 
     this.game.state = 'ended';
+
     if (player) {
       this.game.winner = this.game.players.find(p => p.piece === player);
     } else {
       this.game.winner = null;
     }
+
     this.gameChange.emit(this.game);
     this.loading = false;
   }
 
-  public handleClick(box: Box) {
+  public handleClick(box: Box): void {
     // Check loading in order to avoid unwanted events
     if (this.loading === false) {
       this.loading = true;
@@ -88,6 +90,7 @@ export class BoardComponent implements OnInit {
         if (this.game.state === 'preparing') {
           this.game.state = 'playing';
         }
+
         // Query server for next-move processing and response
         this.gameService.nextMove(this.game, box, this.game.currentPlayer).subscribe(
           (response: any) => {
@@ -123,11 +126,10 @@ export class BoardComponent implements OnInit {
         );
       }
     }
-
   }
 
   public getBorders(box: Box): {} {
-    let borders;
+    let borders: {};
 
     switch (box.position) {
       case 1:
@@ -137,6 +139,7 @@ export class BoardComponent implements OnInit {
           'animation-delay': '1s'
         };
         break;
+
       case 3:
       case 5:
         borders = {
@@ -144,7 +147,7 @@ export class BoardComponent implements OnInit {
           'animation-delay': '1s'
         };
         break;
-      case 4:
+
       case 4:
         borders = { 'background-image': 'linear-gradient(to right, white 100%, white 100%), linear-gradient(to bottom, white 100%, white 100%), linear-gradient(to right, white 100%, white 100%), linear-gradient(to bottom, white 100%, white 100%)' };
         break;

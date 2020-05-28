@@ -32,7 +32,7 @@ export class ScoringComponent implements OnInit {
   }
 
   public getCurrentPlayer(): string {
-    let toret;
+    let toret: string;
 
     if (this.game.winner !== undefined) {
       if (this.game.winner !== null) {
@@ -62,8 +62,6 @@ export class ScoringComponent implements OnInit {
       toret += ', es tu turno';
     }
 
-
     return toret;
   }
-
 }

@@ -11,9 +11,10 @@ import { Game } from 'src/app/shared/models/game.model';
 export class BoxComponent implements OnInit {
   @Input() game: Game;
   @Input() box: Box;
+  @Input() endedLine: number[];
+
   @Input() loading: boolean;
   @Output() loadingChange = new EventEmitter<boolean>();
-  @Input() endedLine: number[];
 
   @Output() clickEmitter = new EventEmitter<Box>();
 
@@ -29,7 +30,7 @@ export class BoxComponent implements OnInit {
   }
 
   public getEnded(type: string): {} {
-    let style;
+    let style: {};
 
     if (this.endedLine && this.endedLine.includes(this.box.position)) {
       style = {

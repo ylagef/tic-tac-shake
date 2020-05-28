@@ -10,14 +10,17 @@ app.use(bodyParser.json())
 app.use(cors());
 
 function getFillingArray(game: Game, playerValue: string): {} {
+    // Rows
     const r1 = game.boxes.filter(b => [0, 1, 2].includes(b.position) && b.value === playerValue).length;
     const r2 = game.boxes.filter(b => [3, 4, 5].includes(b.position) && b.value === playerValue).length;
     const r3 = game.boxes.filter(b => [6, 7, 8].includes(b.position) && b.value === playerValue).length;
 
+    // Cols
     const c1 = game.boxes.filter(b => [0, 3, 6].includes(b.position) && b.value === playerValue).length;
     const c2 = game.boxes.filter(b => [1, 4, 7].includes(b.position) && b.value === playerValue).length;
     const c3 = game.boxes.filter(b => [2, 5, 8].includes(b.position) && b.value === playerValue).length;
 
+    // Diagonals
     const d1 = game.boxes.filter(b => [0, 4, 8].includes(b.position) && b.value === playerValue).length;
     const d2 = game.boxes.filter(b => [2, 4, 6].includes(b.position) && b.value === playerValue).length;
 
@@ -81,7 +84,7 @@ function getBetterAiMove(game: Game): number {
     return validIndexes[Math.floor(Math.random() * validIndexes.length)];
 }
 
-app.post("/api/next-move", (req, res, next) => {
+app.post("/api/next-move", (req, res) => {
     const game: Game = req.body.game;
     let box: Box = req.body.box;
     const player: Player = req.body.player;
@@ -131,11 +134,10 @@ app.post("/api/next-move", (req, res, next) => {
                     response['ended'] = { player: 'o', line: aiEnded };
                 }
             }
-
         }
 
         if (game.boxes.filter(b => b.value === null).length === 0 && !response['ended']) {
-            // Draws
+            // Draws: No free boxes and not ended
             response['ended'] = null;
         }
 
@@ -146,8 +148,5 @@ app.post("/api/next-move", (req, res, next) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
+// App listening on port 3000
 app.listen(3000, '0.0.0.0');
-// app.listen(PORT, () => {
-//     console.log(`Server is running in http://localhost:${PORT}`);
-// });
