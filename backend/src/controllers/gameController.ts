@@ -77,6 +77,7 @@ function getBetterAiMove(game: Game): number {
 }
 
 function validGame(data: any) {
+    // Validate boxes
     if (data.boxes !== undefined && data.boxes instanceof Array) {
         let validBoxes = true;
         let index = 0;
@@ -97,6 +98,7 @@ function validGame(data: any) {
         return false;
     }
 
+    // Validate players
     if (data.players !== undefined && data.players instanceof Array) {
         let validPlayers = true;
         data.players.forEach((p: any) => {
