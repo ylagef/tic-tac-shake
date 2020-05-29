@@ -10,7 +10,7 @@ app.use(cors());
 
 app.post("/api/next-move", GameController.getNextMove);
 
-// App listening on port 3000 and pc's
+// App listening on port 3000 and pc's ip
 app.listen(3000, '0.0.0.0');
 
 module.exports = app

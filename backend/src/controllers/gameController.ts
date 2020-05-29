@@ -143,6 +143,11 @@ class GameController {
         const response = {};
         response['boxes'] = [];
 
+        if (game.boxes.find(b => b.position === box.position).value !== null) {
+            // Check if the required movement is valid (box is free)
+            return res.status(400).send('Required position was already filled');
+        }
+
         // Player 1 movement
         box.value = 'x';
         game.boxes.find(b => b.position === box.position).value = 'x';
