@@ -43,7 +43,7 @@ En segundo lugar instalaremos el frontend y sus dependencias:
 
 Posteriormente, lo lanzaremos con el cli de Angular:
 
-    $ ng s
+    $ ng s --port 0.0.0.0
 
 > Esto servirá el frontend en la ip del cliente, puerto 4200 (o localhost). Por ejemplo, sea la ip del cliente 192.168.2.26, el frontend estará sirviendo en 192.168.2.26:4200.
 
